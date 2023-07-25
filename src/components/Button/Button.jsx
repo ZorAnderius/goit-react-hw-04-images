@@ -1,9 +1,9 @@
 import loadBtnCSS from './Button.module.css';
 
-export const Button = ({ addImages }) => {
+export const Button = ({ changePage }) => {
   return (
     <>
-      <button className={loadBtnCSS.btn} type="button" onClick={addImages}>
+      <button className={loadBtnCSS.btn} type="button" onClick={changePage}>
         Load more
       </button>
     </>

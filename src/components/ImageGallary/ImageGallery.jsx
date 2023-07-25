@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import React from 'react';
-import { axiosAPI } from 'api/pixabay_api';
 
 import imageGallaryCSS from './ImageGallery.module.css';
 import { ImageGallaryItem } from 'components/ImageGallaryItem/ImageGallaryItem';
@@ -11,70 +10,11 @@ import { Loader } from 'components/Loader/Loader';
 
 export class ImageGallary extends Component {
   state = {
-    images: [],
     showModal: false,
-
     img: {
       largeImage: '',
       descrip: '',
     },
-
-    page: 1,
-    per_page: 40,
-    totalPages: 0,
-
-    error: null,
-    status: 'idle',
-  };
-  hasMorePages = () => {
-    const { totalPages, page, per_page } = this.state;
-    const pages = Math.ceil(totalPages / per_page);
-    return page < pages;
-  };
-
-  getImages = async (imageName, page = 1, per_page = 40) => {
-    try {
-      this.setState({ status: 'pending' });
-      const { data } = await axiosAPI(imageName, page, per_page);
-      if (!data.total) {
-        throw new Error('No matches found. The data may not be valid');
-      }
-
-      this.setState({
-        images: [...data.hits],
-        totalPages: data.totalHits,
-        page: page,
-        status: 'resolved',
-      });
-    } catch (error) {
-      this.setState({
-        error: error.message,
-        status: 'rejected',
-      });
-    }
-  };
-
-  addImages = async () => {
-    const { page, per_page } = this.state;
-    const { imageName } = this.props;
-    const newPage = page + 1;
-
-    try {
-      this.setState({ status: 'pending' });
-      const { data } = await axiosAPI(imageName, page, per_page);
-      if (!data.total) {
-        return new Error('Oops! Something went wrong');
-      }
-      this.setState(prevState => ({
-        images: [...prevState.images, ...data.hits],
-        totalPages: data.totalHits,
-        page: newPage,
-        status: 'resolved',
-      }));
-    } catch (error) {
-      console.log(' error.message', error.message);
-      this.setState({ error, status: 'rejected' });
-    }
   };
 
   toggleModal = () => {
@@ -85,24 +25,18 @@ export class ImageGallary extends Component {
     this.setState({ img: { largeImage, descrip } });
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const { imageName } = this.props;
-    if (imageName !== prevProps.imageName) {
-      this.getImages(imageName);
-    }
-  }
-
   render() {
     const {
-      images,
       showModal,
       img: { largeImage, descrip },
-      error,
-      status,
     } = this.state;
-    console.log('error', error);
+    const { images, status, error, hasMorePages, changePage } = this.props;
 
-    const hasMoreImg = this.hasMorePages();
+    console.log('images', images);
+    console.log('status', status);
+    const hasMoreImg = hasMorePages();
+    console.log('largeImage', largeImage);
+    console.log(' descrip', descrip);
 
     if (status === 'idle') {
       return;
@@ -131,7 +65,7 @@ export class ImageGallary extends Component {
             ))}
           </ul>
 
-          {hasMoreImg && <Button addImages={this.addImages} />}
+          {hasMoreImg && <Button changePage={changePage} />}
 
           {showModal && (
             <Modal toggleModal={this.toggleModal}>

@@ -13,13 +13,13 @@ const API_KEY = '36805938-0e5858f236185e483726e7849';
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
-export const axiosAPI = async (imageName, page, per_page) => {
+export const axiosAPI = async (searchName, page, per_page) => {
   return await axios({
     params: {
       key: API_KEY,
       page: page,
       per_page: per_page,
-      q: imageName,
+      q: searchName,
       image_type: 'photo',
       orientation: 'horizontal',
       safesearch: true,

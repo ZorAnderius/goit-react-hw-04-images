@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import modalCSS from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
+
 export class Modal extends Component {
   componentDidMount() {
     window.addEventListener('keydown', this.hendleKeyDown);
