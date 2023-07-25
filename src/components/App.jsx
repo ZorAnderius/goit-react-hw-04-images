@@ -11,13 +11,14 @@ export class App extends Component {
     images: [],
 
     page: 1,
-    per_page: 40,
+    per_page: 12,
     totalPages: 0,
     error: null,
     status: 'idle',
   };
 
-  getImages = async (searchName, page = 1, per_page = 40) => {
+  getImages = async () => {
+    const { searchName, page, per_page } = this.state;
     try {
       this.setState({ status: 'pending' });
       const { data } = await axiosAPI(searchName, page, per_page);
@@ -55,7 +56,6 @@ export class App extends Component {
         status: 'resolved',
       }));
     } catch (error) {
-      console.log(' error.message', error.message);
       this.setState({ error, status: 'rejected' });
     }
   };
@@ -73,17 +73,9 @@ export class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { searchName } = this.state;
     if (searchName !== prevState.searchName) {
-      this.getImages(searchName);
+      this.getImages();
     }
   }
-
-  changePage = () => {
-    const newPage = this.state.page + 1;
-    this.setState({
-      page: newPage,
-    });
-    this.addImages();
-  };
 
   render() {
     const { images, status, error } = this.state;
@@ -97,7 +89,7 @@ export class App extends Component {
           status={status}
           error={error}
           hasMorePages={this.hasMorePages}
-          changePage={this.changePage}
+          changePage={this.addImages}
           onImgClick={this.toggleModal}
         />
         ;

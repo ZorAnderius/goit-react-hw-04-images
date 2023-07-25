@@ -32,11 +32,7 @@ export class ImageGallary extends Component {
     } = this.state;
     const { images, status, error, hasMorePages, changePage } = this.props;
 
-    console.log('images', images);
-    console.log('status', status);
     const hasMoreImg = hasMorePages();
-    console.log('largeImage', largeImage);
-    console.log(' descrip', descrip);
 
     if (status === 'idle') {
       return;
