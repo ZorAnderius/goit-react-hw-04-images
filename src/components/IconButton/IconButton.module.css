@@ -1,0 +1,24 @@
+.btn-submit {
+  position: absolute;
+  top: 0;
+  right: -15px;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0;
+  color: #bdc3c7;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: transparent;
+  transition-property: background-color;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.icon-search {
+  fill: currentColor;
+}
+
+.btn-submit:is(:focus, :hover) {
+  color: rgb(211, 210, 208);
+  background-color: #676869;
+}

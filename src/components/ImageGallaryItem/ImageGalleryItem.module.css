@@ -1,0 +1,21 @@
+.photo_card {
+  width: 300px;
+  height: 150px;
+  box-shadow: 0px 0px 16px 12px rgba(99, 96, 96, 0.75);
+  -webkit-box-shadow: 0px 0px 16px 12px rgba(99, 96, 96, 0.75);
+  -moz-box-shadow: 0px 0px 16px 12px rgba(99, 96, 96, 0.75);
+  transition: scale;
+  transition-duration: 250ms;
+  transition-timing-function: ease-in-out;
+}
+
+.photo_card_img {
+  width: 300px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.photo_card:is(:hover, :focus) {
+  cursor: pointer;
+  scale: 1.02;
+}

@@ -1,0 +1,37 @@
+.form_wrapper {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+  position: relative;
+}
+
+.formSearch {
+  position: relative;
+  max-width: 340px;
+}
+
+.inputSearch {
+  font: inherit;
+  display: block;
+  padding: 2px;
+  padding-left: 10px;
+  min-width: 340px;
+  font-size: 24px;
+  height: 36px;
+  color: rgb(51, 29, 29);
+
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  background-color: #bdc3c7;
+  transition-property: box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.inputSearch:is(:focus, :hover) {
+  box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.67);
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.67);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.67);
+}
