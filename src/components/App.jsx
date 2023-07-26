@@ -9,10 +9,10 @@ export const App = () => {
   const [searchName, setSearchName] = useState(null);
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
-  const [per_page, setPerPage] = useState(40);
   const [totalPages, setTotalPages] = useState(0);
   const [error, setError] = useState('');
   const [status, setStatus] = useState('idle');
+  const per_page = 40;
 
   useEffect(() => {
     const getImages = async () => {
