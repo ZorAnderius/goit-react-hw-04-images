@@ -1,3 +1,5 @@
+import propTypes from 'prop-types';
+
 import loadBtnCSS from './Button.module.css';
 
 export const Button = ({ changePage }) => {
@@ -8,4 +10,8 @@ export const Button = ({ changePage }) => {
       </button>
     </>
   );
+};
+
+Button.propTypes = {
+  changePage: propTypes.func.isRequired,
 };

@@ -1,3 +1,5 @@
+import propTypes from 'prop-types';
+
 import iconBtnCSS from './IconButton.module.css';
 
 export const IconButton = ({ type, children }) => {
@@ -6,4 +8,8 @@ export const IconButton = ({ type, children }) => {
       {children}
     </button>
   );
+};
+
+IconButton.propTypes = {
+  type: propTypes.string.isRequired,
 };
