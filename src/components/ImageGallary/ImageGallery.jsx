@@ -33,9 +33,7 @@ export const ImageGallary = ({
   if (status === 'idle') {
     return;
   }
-  if (status === 'pending') {
-    return <Loader />;
-  }
+
   if (status === 'rejected') {
     return <div className={imageGallaryCSS.error}>{error}</div>;
   }
@@ -54,7 +52,7 @@ export const ImageGallary = ({
             />
           ))}
         </ul>
-        {hasMoreImg && <Button changePage={changePage} />}
+        {hasMoreImg && <Button changePage={changePage} />};
         {showModal && (
           <Modal toggleModal={toggleModal}>
             <img

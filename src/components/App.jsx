@@ -4,6 +4,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallary } from './ImageGallary/ImageGallery';
 import { ToastContainer } from 'react-toastify';
 import { axiosAPI } from 'api/pixabay_api';
+import { Loader } from './Loader/Loader';
 
 export const App = () => {
   const [searchName, setSearchName] = useState(null);
@@ -12,27 +13,30 @@ export const App = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [error, setError] = useState('');
   const [status, setStatus] = useState('idle');
-  const per_page = 40;
+  const [isLoading, setIsLoading] = useState(false);
+  const per_page = 100;
 
   useEffect(() => {
     const getImages = async () => {
       try {
-        setStatus('pending');
+        setIsLoading(true);
         const { data } = await axiosAPI(searchName, per_page);
         if (!data.total) {
           throw new Error('No matches found. The data may not be valid');
         }
         setImages([...data.hits]);
         setTotalPages(data.totalHits);
+        setIsLoading(false);
         setStatus('resolved');
       } catch (error) {
         setError(error.message);
+        setIsLoading(false);
         setStatus('rejected');
       }
     };
     if (searchName) {
       getImages(searchName);
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [per_page, searchName]);
 
@@ -42,15 +46,17 @@ export const App = () => {
     }
     const addImages = async () => {
       try {
-        setStatus('pending');
+        setIsLoading(true);
         const { data } = await axiosAPI(searchName, per_page, page);
         if (!data.total) {
           throw new Error('No matches found. The data may not be valid');
         }
         setImages(prevImg => [...prevImg, ...data.hits]);
+        setIsLoading(false);
         setStatus('resolved');
       } catch (error) {
         setError(error.message);
+        setIsLoading(false);
         setStatus('rejected');
       }
     };
@@ -88,7 +94,7 @@ export const App = () => {
         hasMorePages={hasMorePages}
         changePage={addImages}
       />
-      ;
+      {isLoading && <Loader />}
       <ToastContainer
         position="top-right"
         autoClose={3000}
